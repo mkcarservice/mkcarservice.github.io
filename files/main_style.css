@@ -10,7 +10,7 @@
  div.paragraph { padding-bottom: 20px; font-family: 'Lato', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.5em; }
  div.paragraph { padding-bottom: 20px; font-family: 'Lato', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.5em; }
  p { padding-bottom: 20px; font-family: 'Lato', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.5em; }
- blockquote { margin: 2em 0; padding: 1em; padding-left: 30px !important; background: url("theme/theme/quotes.png?1483887394?1786294192") no-repeat 0px 25px; color: #666666; border-left: 0px !important; font-family: 'Lato', sans-serif; font-size: 18px; font-weight: bold; line-height: 28px; }
+ blockquote { margin: 2em 0; padding: 1em; padding-left: 30px !important; background: url("theme/quotes.png?1483887394?1786294192") no-repeat 0px 25px; color: #666666; border-left: 0px !important; font-family: 'Lato', sans-serif; font-size: 18px; font-weight: bold; line-height: 28px; }
  ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder { color: #666666; }
  input[type="text"], input[type="email"], textarea { -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; text-shadow: none; }
  input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border: 1px solid #45b33d; }
@@ -46,7 +46,7 @@
  #wsite-menus .wsite-menu-arrow:before { display: block; color: #ffffff; content: '\203A'; font-family: 'Lato', sans-serif; font-size: 24px; font-weight: normal; line-height: 11px; }
  #wsite-mini-cart { position: fixed !important; top: 80px !important; overflow-y: scroll; max-height: 600px; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
  #wsite-mini-cart .wsite-css-aspect { width: 50px; height: 50px; margin: 10px; }
- .banner-wrap { position: relative; width: 100%; padding: 55px 0; box-sizing: border-box; background: #ffffff url('theme/theme/default-bg.jpg?1483887394?1786294192') center center no-repeat; background-size: cover; }
+ .banner-wrap { position: relative; width: 100%; padding: 55px 0; box-sizing: border-box; background: #ffffff url('theme/default-bg.jpg?1483887394?1786294192') center center no-repeat; background-size: cover; }
  .banner-wrap:before { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.1); content: ' '; }
  .banner-wrap .container { display: table; overflow-y: hidden; height: 100%; }
  .banner-wrap .banner { position: relative; display: table-cell; vertical-align: middle; text-align: center; }
@@ -68,7 +68,7 @@
  .footer-wrap div.paragraph { font-size: 13px; padding: 0 0 15px; }
  .footer-wrap div.paragraph { font-size: 13px; padding: 0 0 15px; }
  .footer-wrap p { font-size: 13px; padding: 0 0 15px; }
- .footer-wrap blockquote { background: url("theme/theme/quotes.png?1483887394?1786294192") no-repeat 0px 15px; font-size: 15px; color: #ffffff; }
+ .footer-wrap blockquote { background: url("theme/quotes.png?1483887394?1786294192") no-repeat 0px 15px; font-size: 15px; color: #ffffff; }
  .footer-wrap .wsite-form-container { text-align: left; margin-top: 0 !important; }
  .footer-wrap .wsite-form-label, .footer-wrap .form-radio-container { color: #ffffff; font-size: 13px; }
  .wsite-social .wsite-social-item { font-size: 16px; margin-right: 5px; }
@@ -88,7 +88,7 @@
  .wsite-form-radio-container label { position: relative; top: 1px; }
  .wsite-form-input, .wsite-search-element-input { margin-bottom: 10px; padding: 8px !important; background: #ffffff; border-radius: 0; border: 1px solid #b2b2ad; font-family: 'Lato', sans-serif; font-size: 15px; font-weight: normal; line-height: normal; -webkit-transition: border 300ms ease; -moz-transition: border 300ms ease; -ms-transition: border 300ms ease; -o-transition: border 300ms ease; transition: border 300ms ease; }
  .wsite-form-input:focus, .wsite-form-input--focus, .wsite-form-input--focus, .wsite-search-element-input:focus { border: 1px solid #45b33d; }
- .form-select, .wsite-form-field select, .wsite-com-product-option-groups select { height: auto; padding: 8px; background: #ffffff url(theme/theme/select-dropdown.png?1483887394?1786294192) 97% center no-repeat; border-radius: 0; border: 1px solid #b2b2ad; font-family: 'Lato', sans-serif; font-size: 15px; font-weight: normal; line-height: normal; -webkit-transition: border 300ms ease; -moz-transition: border 300ms ease; -ms-transition: border 300ms ease; -o-transition: border 300ms ease; transition: border 300ms ease; }
+ .form-select, .wsite-form-field select, .wsite-com-product-option-groups select { height: auto; padding: 8px; background: #ffffff url(theme/select-dropdown.png?1483887394?1786294192) 97% center no-repeat; border-radius: 0; border: 1px solid #b2b2ad; font-family: 'Lato', sans-serif; font-size: 15px; font-weight: normal; line-height: normal; -webkit-transition: border 300ms ease; -moz-transition: border 300ms ease; -ms-transition: border 300ms ease; -o-transition: border 300ms ease; transition: border 300ms ease; }
  .form-select:focus, .wsite-form-field select:focus, .wsite-com-product-option-groups select:focus { border: 1px solid #45b33d; }
  .formlist, .wsite-editor .formlist { min-height: inherit; }
  .form-field-error .wsite-form-radio-container { border: none; }
@@ -130,7 +130,7 @@
  .no-header-page .main-wrap { padding-top: 60px; }
  .splash-page { position: relative; top: 0; left: 0; width: 100%; height: 100%; min-height: 100vh; background: none; box-sizing: border-box; }
  .splash-page .wrapper { height: 100%; }
- .splash-page .main-wrap { position: relative; display: table; width: 100%; height: 100%; min-height: 100vh; background: url(theme/theme/default-bg.jpg?1483887394?1786294192) no-repeat; background-attachment: fixed !important; background-size: cover; box-sizing: border-box; }
+ .splash-page .main-wrap { position: relative; display: table; width: 100%; height: 100%; min-height: 100vh; background: url(theme/default-bg.jpg?1483887394?1786294192) no-repeat; background-attachment: fixed !important; background-size: cover; box-sizing: border-box; }
  .splash-page .main-wrap:before { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.1); content: ' '; }
  .splash-page .main-wrap > .container { position: relative; display: table; height: 100%; padding: 6em 0 4em; box-sizing: border-box; }
  .splash-page .main-wrap .content-wrap { display: table-cell; padding: 0; vertical-align: middle; background: none; }
