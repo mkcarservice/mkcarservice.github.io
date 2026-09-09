@@ -29,7 +29,7 @@
  #preview-iframe .landing-page .banner-wrap, #icontent.landing-page .banner-wrap { height: 95vh; min-height: 95vh; }
  body.fade-in-nav .paris-header { opacity: 1; }
  body.wsite-checkout-page .paris-header, body.wsite-native-mobile-editor .paris-header { position: absolute !important; }
- .paris-header { position: fixed; top: 0; z-index: 12; overflow-y: hidden; width: 100%; background: rgba(0, 0, 0, 0.9); border-top: 5px solid #45b33d; opacity: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; -webkit-transition: opacity 1000ms ease-in; -moz-transition: opacity 1000ms ease-in; -ms-transition: opacity 1000ms ease-in; -o-transition: opacity 1000ms ease-in; transition: opacity 1000ms ease-in; }
+ .paris-header { position: fixed; top: 0; z-index: 12; overflow-y: hidden; width: 100%; background: rgba(0, 0, 0, 0.9); border-top: 5px solid #45b33d; opacity: 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; -webkit-transition: opacity 1000ms ease-in; -moz-transition: opacity 1000ms ease-in; -ms-transition: opacity 1000ms ease-in; -o-transition: opacity 1000ms ease-in; transition: opacity 1000ms ease-in; }
  .paris-header .container { position: relative; display: table; width: 100%; padding: 0 40px; box-sizing: border-box; }
  .paris-header .logo { display: table-cell; padding-right: 25px; vertical-align: middle; color: #ffffff; font-family: 'Fjalla One', sans-serif; font-size: 24px; font-weight: normal; line-height: normal; }
  .paris-header .logo a { overflow: hidden; color: #ffffff; letter-spacing: .05em; text-transform: uppercase; font-family: 'Fjalla One', sans-serif; font-size: 24px; font-weight: normal; line-height: normal; }
@@ -113,7 +113,7 @@
  .fancybox-close { top: 20px; right: 20px; }
  .fancybox-close:before { content: '\00D7'; }
  .landing-page .banner-wrap { height: 100vh; min-height: 100vh; }
- .landing-page .banner-wrap .banner { opacity: 0; -webkit-transition: all 1000ms ease; -moz-transition: all 1000ms ease; -ms-transition: all 1000ms ease; -o-transition: all 1000ms ease; transition: all 1000ms ease; }
+ .landing-page .banner-wrap .banner { opacity: 1; -webkit-transition: all 1000ms ease; -moz-transition: all 1000ms ease; -ms-transition: all 1000ms ease; -o-transition: all 1000ms ease; transition: all 1000ms ease; }
  .landing-page #contentArrow { position: absolute; display: block; left: 0; right: 0; bottom: 0; width: 40px; height: 40px; margin: 0 auto; border: 3px solid #ffffff; border-radius: 100%; opacity: 0.5; cursor: pointer; -webkit-transition: all 500ms ease; -moz-transition: all 500ms ease; -ms-transition: all 500ms ease; -o-transition: all 500ms ease; transition: all 500ms ease; }
  .landing-page #contentArrow span { position: relative; top: 8px; left: 10px; content: '\203A'; font-family: 'Lato', sans-serif; font-size: 24px; font-weight: normal; line-height: 11px; }
  .landing-page #contentArrow span:before, .landing-page #contentArrow span:after { position: relative; display: block; background: #ffffff; width: 4px; height: 16px; content: ' '; }
