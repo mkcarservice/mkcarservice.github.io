@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+	<Document>
+		<name>Locations for MK Car Service Kirill Molsam Kfz-Meisterwerkstatt.</name>
+		<atom:link rel="related" href="http://www.mkcarservice.de" />
+		<Folder>
+			<Placemark>
+				<name><![CDATA[MK Car Service]]></name>
+				<address><![CDATA[Unter den Ulmen 65, Gütersloh, 33330, Germany]]></address>
+				<description><![CDATA[Kirill Molsam<br />
+Kfz-Meisterwerkstatt]]></description>
+				<Point>
+					<coordinates>8.3708078,51.897781,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+	</Document>
+</kml>
