@@ -16,7 +16,8 @@ const ausgaben = [
   { quelle: 'src/js/site.js', muster: /assets\/site\.[a-f0-9]{8}\.js/g, endung: 'js' },
 ];
 
-const seiten = readdirSync('.').filter((f) => f.endsWith('.html'));
+const seiten = readdirSync('.').filter((f) => f.endsWith('.html'))
+  .concat(readdirSync('ru').filter((f) => f.endsWith('.html')).map((f) => 'ru/' + f));
 const ersetzungen = [];
 
 for (const { quelle, muster, endung } of ausgaben) {

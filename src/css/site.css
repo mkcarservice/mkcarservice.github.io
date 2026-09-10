@@ -458,6 +458,13 @@ body.nav-open .nav {
   background: var(--gruen);
 }
 
+/* Sprachumschalter: letzter Menüpunkt, etwas abgesetzt */
+.nav li.sprache a {
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
 /* ---------- Banner ---------- */
 
 .banner-wrap {
