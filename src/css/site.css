@@ -788,6 +788,23 @@ body.nav-open .nav {
   margin-bottom: 0.25em;
 }
 
+/* Icon-Links im Fußbereich: Berührungsfläche mindestens 44 mal 44 Pixel */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin-right: 8px;
+  border-radius: 6px;
+}
+
+.icon-link .icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
 /* Icons, als Inline-SVG im HTML */
 .icon {
   display: inline-block;
