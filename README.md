@@ -6,14 +6,14 @@ Servern, setzt keine Cookies und speichert nichts im Browser.
 
 ## Aufbau
 
-| Pfad | Inhalt |
-| --- | --- |
-| `*.html` | Die zehn Seiten. Das ist der Quelltext, es gibt keine Templates. |
-| `src/css/site.css` | Das Stylesheet, eine Datei. |
-| `src/js/site.js` | Das Skript für Navigation und Untermenü. |
-| `assets/` | Gebaute Dateien: `site.<hash>.css`, `site.<hash>.js`, Schriften. |
-| `bilder/` | Alle Bilder, mit sprechenden Dateinamen. |
-| `build.mjs` | Der Build, siehe unten. |
+| Pfad               | Inhalt                                                           |
+| ------------------ | ---------------------------------------------------------------- |
+| `*.html`           | Die zehn Seiten. Das ist der Quelltext, es gibt keine Templates. |
+| `src/css/site.css` | Das Stylesheet, eine Datei.                                      |
+| `src/js/site.js`   | Das Skript für Navigation und Untermenü.                         |
+| `assets/`          | Gebaute Dateien: `site.<hash>.css`, `site.<hash>.js`, Schriften. |
+| `bilder/`          | Alle Bilder, mit sprechenden Dateinamen.                         |
+| `build.mjs`        | Der Build, siehe unten.                                          |
 
 ## Ändern und veröffentlichen
 
