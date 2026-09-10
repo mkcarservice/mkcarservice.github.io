@@ -458,24 +458,43 @@ body.nav-open .nav {
   background: var(--gruen);
 }
 
-/* Sprachumschalter: letzter Menüpunkt, als Knopf mit Rahmen */
+/* Sprachumschalter: zwei Segmente DE und RU, das aktive grün. Der ganze Knopf
+   ist ein Link auf dieselbe Seite in der anderen Sprache. */
 .nav li.sprache {
   padding: 8px 0 4px;
 }
 
-.nav li.sprache a {
-  display: inline-block;
-  padding: 6px 16px;
+.nav li.sprache .sprachwahl {
+  display: inline-flex;
+  padding: 0;
   border: 2px solid rgb(255 255 255 / 0.7);
   border-radius: 999px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  overflow: hidden;
+  font-family: var(--schrift);
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
   text-transform: none;
 }
 
-.nav li.sprache a:hover,
-.nav li.sprache a:focus-visible {
+.nav li.sprache .sprachwahl span {
+  display: block;
+  padding: 7px 12px;
+  color: #fff;
+}
+
+.nav li.sprache .sprachwahl span.aktiv {
+  background: var(--gruen);
+  color: #111;
+}
+
+.nav li.sprache .sprachwahl:hover,
+.nav li.sprache .sprachwahl:focus-visible {
   border-color: var(--gruen);
+}
+
+.nav li.sprache .sprachwahl:hover span:not(.aktiv) {
   color: var(--gruen);
 }
 
@@ -1062,14 +1081,12 @@ body.nav-open .nav {
     padding: 0 0 0 10px;
   }
 
-  .nav li.sprache a {
-    margin-top: 15px;
-    padding: 4px 14px;
+  .nav li.sprache .sprachwahl {
+    margin-top: 14px;
     border-bottom-width: 2px;
-    font-size: 0.95em;
   }
 
-  .nav li.sprache a:hover {
+  .nav li.sprache .sprachwahl:hover {
     border-bottom-color: var(--gruen);
   }
 
