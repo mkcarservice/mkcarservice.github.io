@@ -1,0 +1,12 @@
+{
+  "name": "mkcarservice.de",
+  "private": true,
+  "description": "Website von MK Car Service, Kfz-Meisterwerkstatt in Gütersloh. Statische Seiten auf GitHub Pages.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

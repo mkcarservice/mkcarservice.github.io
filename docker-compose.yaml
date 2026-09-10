@@ -2,9 +2,10 @@
 #   docker compose up -d   ->  http://localhost:8080
 #   docker compose down
 #
-# Das Repository ist schreibgeschützt eingehängt. Änderungen an HTML, CSS und
-# Bildern sind nach einem Neuladen im Browser sofort sichtbar. Der Container
-# muss dafür nicht neu gestartet werden.
+# Das Repository ist schreibgeschützt eingehängt. Änderungen an HTML und
+# Bildern sind nach einem Neuladen im Browser sofort sichtbar. Änderungen an
+# src/css und src/js brauchen vorher "npm run build". Der Container muss nie
+# neu gestartet werden.
 services:
   web:
     image: nginx:alpine
