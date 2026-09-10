@@ -42,6 +42,9 @@ Danach ist die Seite unter http://localhost:8080 erreichbar.
 ## Regeln
 
 - Keine Cookies, keine Datensammlung, keine Inhalte von fremden Servern.
+- Mobile first. Jede Änderung wird zuerst auf dem Handy geprüft, der
+  Desktop kommt danach. Neue CSS-Regeln gelten erst für schmale Bildschirme,
+  Abweichungen für breite kommen in `min-width`-Abfragen.
 - Seiten-URLs bleiben stabil. Neue Seiten gehören in `sitemap.xml`.
 - Neue Bilder nach `bilder/`, mit sprechendem Namen, als WebP oder optimiertes
   JPEG, höchstens 1920 Pixel breit.
