@@ -396,3 +396,12 @@ div.paragraph ol, div.paragraph ol li { list-style: decimal outside !important; 
   .paris-header { overflow: visible; }
   .paris-header .nav.desktop-nav { overflow: visible; }
 }
+
+/* Rechtstexte wie die Datenschutzerklaerung. Das Theme setzt list-style global
+   auf none und nimmt Listen jeden Einzug. Fuer die Navigation ist das richtig,
+   fuer Fliesstext nicht. Diese Regeln gelten nur innerhalb von .rechtstext. */
+.rechtstext h4 { margin-top: 2em; margin-bottom: 0.5em; }
+.rechtstext h4:first-child { margin-top: 0; }
+.rechtstext p { margin-bottom: 1em; }
+.rechtstext ul { margin: 0 0 1em 1.5em; }
+.rechtstext ul li { list-style: disc outside; margin-bottom: 0.25em; }
