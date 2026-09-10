@@ -9,6 +9,7 @@
 import { build } from 'esbuild';
 import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync, unlinkSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 
 const ausgaben = [
   { quelle: 'src/css/site.css', muster: /assets\/site\.[a-f0-9]{8}\.css/g, endung: 'css' },
@@ -50,3 +51,18 @@ for (const seite of seiten) {
   if (nachher !== vorher) writeFileSync(seite, nachher);
 }
 console.log(`${seiten.length} Seiten geprüft.`);
+
+// Sitemap mit lastmod: Datum des letzten Commits je Seite, bei nicht
+// eingecheckten Änderungen das heutige Datum.
+const heute = new Date().toISOString().slice(0, 10);
+function letzteAenderung(seite) {
+  const geaendert = execSync(`git status --porcelain -- "${seite}"`).toString().trim() !== '';
+  if (geaendert) return heute;
+  const datum = execSync(`git log -1 --format=%cs -- "${seite}"`).toString().trim();
+  return datum || heute;
+}
+const eintraege = seiten
+  .filter((s) => s !== '404.html')
+  .map((s) => `  <url>\n    <loc>https://mkcarservice.de/${s === 'index.html' ? '' : s}</loc>\n    <lastmod>${letzteAenderung(s)}</lastmod>\n  </url>`);
+writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${eintraege.join('\n')}\n</urlset>\n`);
+console.log(`sitemap.xml mit ${eintraege.length} Seiten geschrieben.`);

@@ -1,7 +1,9 @@
 /* Stylesheet von mkcarservice.de.
    Quelle für den Build (npm run build), der daraus assets/site.<hash>.css erzeugt.
-   Aufbau: Schriften, Grundlagen, Kopfbereich und Navigation, Banner, Inhalt,
-   Fußbereich, Hilfsklassen, Seitenhintergründe. */
+
+   Mobile first: Die Grundregeln gelten für schmale Bildschirme. Abweichungen
+   für breitere kommen in min-width-Abfragen am Ende der Datei:
+   768px (Tablet), 993px (Desktop mit Menüleiste), 1201px (große Banner). */
 
 /* ---------- Schriften ---------- */
 
@@ -24,8 +26,9 @@
 /* ---------- Grundlagen ---------- */
 
 :root {
-  --gruen: #45b33d;
-  --gruen-dunkel: #36992f;
+  --gruen: #45b33d;           /* Logo-Grün, für Flächen auf dunklem Grund */
+  --gruen-text: #2e8527;      /* dunkler, für Text und Buttons auf hellem Grund, Kontrast 4,7:1 */
+  --gruen-dunkel: #24691f;    /* Hover */
   --text: #666;
   --text-dunkel: #3b3b3b;
   --dunkel: #222121;
@@ -51,7 +54,7 @@ body {
   background: var(--dunkel);
   color: var(--text);
   font-family: var(--schrift);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 24px;
   -webkit-font-smoothing: antialiased;
@@ -67,7 +70,7 @@ ul, ol {
 }
 
 a {
-  color: var(--gruen);
+  color: var(--gruen-text);
   text-decoration: none;
   transition: color 500ms;
 }
@@ -82,6 +85,33 @@ img {
   height: auto;
 }
 
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* Sichtbarer Tastaturfokus, in der Farbe des Elements */
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Sprunglink für Tastatur und Screenreader, erscheint erst beim Fokus */
+.sprunglink {
+  position: absolute;
+  top: 8px;
+  left: -9999px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: #fff;
+  color: var(--gruen-text);
+  font-weight: 700;
+}
+
+.sprunglink:focus {
+  left: 8px;
+}
+
 h1 {
   padding-bottom: 15px;
   color: var(--text-dunkel);
@@ -93,7 +123,7 @@ h1 {
 h2 {
   padding-bottom: 15px;
   color: var(--text-dunkel);
-  font-size: 32px;
+  font-size: 1.75em;
   font-weight: 700;
   line-height: 1.2em;
 }
@@ -124,17 +154,26 @@ div.paragraph ul, div.paragraph ul li {
   list-style: disc outside;
 }
 
+hr.styled-hr {
+  width: 100%;
+  height: 1px;
+  margin: 0 auto;
+  border: 0;
+  background-color: rgb(0 0 0 / 0.13);
+}
+
 .container {
-  width: 960px;
+  width: 100%;
+  padding: 0 20px;
   margin: 0 auto;
 }
 
-/* Sprungziele in der Leistungsliste landen unter dem festen Kopfbereich */
+/* Sprungziele landen unter dem festen Kopfbereich */
 [id] {
   scroll-margin-top: var(--kopf-hoehe);
 }
 
-/* ---------- Kopfbereich und Navigation ---------- */
+/* ---------- Kopfbereich ---------- */
 
 .paris-header {
   position: fixed;
@@ -149,13 +188,14 @@ div.paragraph ul, div.paragraph ul li {
   position: relative;
   display: table;
   width: 100%;
-  padding: 0 40px;
+  padding: 10px 0;
 }
 
 .paris-header .logo {
   display: table-cell;
-  padding-right: 25px;
+  padding-right: 15px;
   vertical-align: middle;
+  text-align: center;
 }
 
 .wsite-logo {
@@ -165,107 +205,221 @@ div.paragraph ul, div.paragraph ul li {
 
 .wsite-logo img {
   vertical-align: top;
+  max-width: 200px;
   max-height: 50px;
   width: auto;
 }
 
-.nav {
+/* Hamburger: ein Button, liegt über der Navigation */
+.paris-header .hamburger {
+  position: relative;
+  z-index: 13;
   display: table-cell;
   vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  padding: 0 10px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.paris-header .hamburger span,
+.paris-header .hamburger span::before,
+.paris-header .hamburger span::after {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  content: "";
+  transition: 200ms ease-out;
+}
+
+.paris-header .hamburger span {
+  left: 4px;
+  margin: 5px 0;
+}
+
+.paris-header .hamburger span::before {
+  top: -8px;
+}
+
+.paris-header .hamburger span::after {
+  bottom: -6px;
+}
+
+.paris-header .hamburger:focus-visible {
+  outline-color: #fff;
+}
+
+/* Bei offenem Menü wird der Hamburger zum X */
+body.nav-open .paris-header .hamburger span {
+  background: transparent;
+}
+
+body.nav-open .paris-header .hamburger span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+body.nav-open .paris-header .hamburger span::after {
+  top: -2px;
+  transform: rotate(135deg);
+}
+
+/* ---------- Navigation: auf dem Handy eine Vollbild-Liste ---------- */
+
+.nav {
+  position: fixed;
+  inset: 0;
+  z-index: 11;
+  display: block;
+  overflow: hidden auto;
+  max-height: 0;
+  padding-top: var(--kopf-hoehe);
+  opacity: 0;
+  visibility: hidden;
+  background: rgb(0 0 0 / 0.9);
   text-align: center;
+  transition: max-height 500ms, opacity 500ms, visibility 0s 500ms;
+}
+
+body.nav-open .nav {
+  max-height: 100vh;
+  padding-bottom: 10px;
+  opacity: 1;
+  visibility: visible;
+  transition: max-height 500ms, opacity 500ms, visibility 0s;
 }
 
 .nav ul {
-  float: right;
-  display: inline-block;
-  text-align: left;
+  display: block;
+  width: 100%;
 }
 
 .nav li {
+  position: relative;
   display: block;
-  float: left;
-  transition: background 500ms;
 }
 
 .nav li a {
   display: block;
-  padding: 22px 20px;
+  padding: 10px 0;
   color: #fff;
   letter-spacing: 0.05em;
-  font-size: 18px;
+  font-size: 1em;
   font-weight: 700;
   line-height: normal;
+  transition: 300ms;
+}
+
+.nav li a:focus-visible {
+  outline-color: #fff;
 }
 
 .nav li.wsite-menu-item-wrap#active > a,
-.nav li.wsite-menu-subitem-wrap#active > a,
 .nav li.wsite-menu-item-wrap > a:hover,
-.nav li.wsite-menu-subitem-wrap > a:hover {
-  background: var(--gruen);
+.nav li.wsite-menu-subitem-wrap > a:hover,
+.nav .wsite-menu li.wsite-nav-current > a {
+  color: var(--gruen);
 }
 
-/* Untermenü auf dem Desktop: klappt beim Überfahren auf */
-.nav li.has-submenu {
-  position: relative;
-}
-
-.nav li.has-submenu > span.icon-caret {
-  display: none;
-}
-
+/* Untermenü: klappt per Pfeil auf */
 .nav .wsite-menu-wrap {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 5000;
-  min-width: 200px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 500ms ease-in-out 250ms;
 }
 
-.nav li.has-submenu:hover > .wsite-menu-wrap,
-.nav li.has-submenu:focus-within > .wsite-menu-wrap {
-  display: block;
-}
-
-.nav .wsite-menu li {
-  float: none;
-  display: block;
+.nav li.has-submenu .wsite-menu-wrap.open {
+  max-height: 1000px;
 }
 
 .nav .wsite-menu li a {
-  padding: 10px 5px;
-  background: rgb(0 0 0 / 0.9);
-  border-bottom: 1px solid #303030;
   font-weight: 400;
 }
 
-.nav .wsite-menu li a:hover {
-  background: rgb(0 0 0 / 0.9);
-  border-left: 5px solid var(--gruen-dunkel);
+.nav li.has-submenu > .icon-caret {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
 }
 
-/* Hamburger: erst ab 992px sichtbar, siehe unten */
-.paris-header label.hamburger {
-  display: none;
+.nav li.has-submenu > .icon-caret:focus-visible {
+  outline-color: #fff;
+}
+
+.nav li.has-submenu > .icon-caret::before,
+.nav li.has-submenu > .icon-caret::after {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 8px;
+  background: #fff;
+  content: "";
+}
+
+.nav li.has-submenu > .icon-caret::before {
+  top: 5px;
+  left: 5px;
+  transform: rotate(-45deg);
+}
+
+.nav li.has-submenu > .icon-caret::after {
+  top: -3px;
+  left: 10px;
+  transform: rotate(45deg);
+}
+
+.nav li.has-submenu.wsite-menu-item-wrap#active > .icon-caret::before,
+.nav li.has-submenu.wsite-menu-item-wrap#active > .icon-caret::after,
+.nav .wsite-menu li.wsite-nav-current > .icon-caret::before,
+.nav .wsite-menu li.wsite-nav-current > .icon-caret::after {
+  background: var(--gruen);
 }
 
 /* ---------- Banner ---------- */
 
 .banner-wrap {
   position: relative;
+  overflow: hidden;
   width: 100%;
   padding: 55px 0;
-  background: #fff center center / cover no-repeat;
+  background: #fff;
+}
+
+/* Das Hintergrundbild ist ein <img>, damit der Browser es früh lädt und
+   in der passenden Größe wählt. */
+.banner-bild {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .banner-wrap::before {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: rgb(0 0 0 / 0.1);
   content: "";
 }
 
 .banner-wrap .container {
+  position: relative;
+  z-index: 2;
   display: table;
   overflow-y: hidden;
   height: 100%;
@@ -274,31 +428,28 @@ div.paragraph ul, div.paragraph ul li {
 .banner-wrap .banner {
   position: relative;
   display: table-cell;
+  overflow-x: hidden;
   vertical-align: middle;
   text-align: center;
 }
 
 .banner-wrap .banner h1 {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   color: #fff;
   word-spacing: 0.1em;
   font-family: Arial, sans-serif;
-  font-size: 100px;
+  font-size: 2.6em;
   font-weight: 400;
-  line-height: 1.1em;
-}
-
-.banner-wrap .banner h2 {
-  padding: 0;
+  line-height: 1.2em;
 }
 
 .banner-wrap .banner p {
-  padding-bottom: 40px;
+  padding-bottom: 30px;
   color: #fff;
   font-family: Arial, sans-serif;
-  font-size: 42px;
+  font-size: 1.1em;
   font-weight: 400;
-  line-height: 50px;
+  line-height: 1.6em;
 }
 
 .banner-wrap .banner .button-wrap {
@@ -309,25 +460,25 @@ div.paragraph ul, div.paragraph ul li {
 .landing-page .banner-wrap {
   height: 100vh;
   min-height: 100vh;
+  padding-bottom: 0;
 }
 
 .landing-page #contentArrow {
-  position: absolute;
+  position: relative;
   display: block;
-  left: 0;
-  right: 0;
-  bottom: 0;
   width: 40px;
   height: 40px;
-  margin: 0 auto;
+  margin: 3.5em auto 0;
   border: 3px solid #fff;
   border-radius: 100%;
+  color: #fff;
   opacity: 0.5;
   cursor: pointer;
   transition: opacity 500ms;
 }
 
-.landing-page #contentArrow:hover {
+.landing-page #contentArrow:hover,
+.landing-page #contentArrow:focus-visible {
   opacity: 1;
 }
 
@@ -335,6 +486,7 @@ div.paragraph ul, div.paragraph ul li {
   position: relative;
   top: 8px;
   left: 10px;
+  display: block;
   font-size: 24px;
   line-height: 11px;
 }
@@ -364,7 +516,6 @@ div.paragraph ul, div.paragraph ul li {
 /* Unterseiten: kurzer Banner */
 .short-header-page .banner-wrap {
   display: table;
-  width: 100%;
   min-height: 240px;
   padding-top: 50px;
   text-align: center;
@@ -376,11 +527,12 @@ div.paragraph ul, div.paragraph ul li {
 
 .short-header-page .banner-wrap .banner h1 {
   padding-top: 65px;
-  font-size: 60px;
-  line-height: 1.1em;
+  padding-bottom: 0;
+  font-size: 2.75em;
+  line-height: 1.2em;
 }
 
-/* Seiten ohne Banner (Jobs, Impressum, Datenschutz) */
+/* Seiten ohne Banner (Jobs, Impressum, Datenschutz, 404) */
 .no-header-page .main-wrap {
   padding-top: 60px;
 }
@@ -398,10 +550,6 @@ div.paragraph ul, div.paragraph ul li {
 
 .banner-wrap .banner .wsite-button {
   text-align: center;
-}
-
-.wsite-button:focus {
-  outline: none;
 }
 
 .wsite-button .wsite-button-inner {
@@ -430,34 +578,32 @@ div.paragraph ul, div.paragraph ul li {
 }
 
 .wsite-button.wsite-button-highlight .wsite-button-inner {
-  background: var(--gruen);
+  background: var(--gruen-text);
   color: #fff;
 }
 
-.wsite-button.wsite-button-highlight:hover .wsite-button-inner {
+.wsite-button.wsite-button-highlight:hover .wsite-button-inner,
+.wsite-button.wsite-button-highlight:focus-visible .wsite-button-inner {
   background: var(--gruen-dunkel);
 }
 
 /* ---------- Inhalt ---------- */
 
 .main-wrap {
+  display: block;
   background: #fff;
 }
 
+.main-wrap .container {
+  padding: 30px 20px;
+}
+
 .main-wrap .content-wrap {
-  padding: 40px 0 30px;
+  padding: 0;
 }
 
 .wsite-not-footer {
   text-align: left;
-}
-
-hr.styled-hr {
-  width: 100%;
-  height: 1px;
-  margin: 0 auto;
-  border: 0;
-  background-color: rgb(0 0 0 / 0.13);
 }
 
 /* Bild mit Rahmenabstand, etwa die Karte auf der Anfahrtsseite */
@@ -466,20 +612,16 @@ hr.styled-hr {
   text-align: center;
 }
 
-/* Spalten. Ersetzt Weeblys Tabellenlayout. Die Zahl ist der Anteil an der Breite. */
+/* Spalten. Auf dem Handy untereinander, ab Tablet nebeneinander.
+   Die Zahl ist der Anteil an der Breite. */
 .spalten {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
 }
 
-.spalten-breit {
-  gap: 30px;
+.spalte-20, .spalte-25, .spalte-30, .spalte-50 {
+  min-width: 0;
 }
-
-.spalte-20 { flex: 20 1 0; min-width: 0; }
-.spalte-25 { flex: 25 1 0; min-width: 0; }
-.spalte-30 { flex: 30 1 0; min-width: 0; }
-.spalte-50 { flex: 50 1 0; min-width: 0; }
 
 /* Rechtstexte wie die Datenschutzerklärung */
 .rechtstext h4 {
@@ -513,17 +655,29 @@ hr.styled-hr {
 /* ---------- Fußbereich ---------- */
 
 .footer-wrap {
+  display: block;
   width: 100%;
   background: var(--dunkel);
   color: #fff;
   font-size: 13px;
 }
 
+.footer-wrap .container {
+  padding: 0;
+}
+
 .footer-wrap .wsite-footer {
   clear: both;
-  width: 960px;
-  margin: 0 auto;
-  padding: 35px 0 20px;
+  width: 100%;
+  padding: 40px 20px;
+}
+
+.footer-wrap a {
+  color: var(--gruen);
+}
+
+.footer-wrap a:hover {
+  color: #fff;
 }
 
 .footer-wrap h3,
@@ -543,6 +697,10 @@ hr.styled-hr {
   padding: 0 0 15px;
 }
 
+.footer-wrap .spalten {
+  gap: 25px;
+}
+
 /* ---------- Hilfsklassen ---------- */
 
 /* Schriftgrößen, ersetzen die alten <font size="n">-Tags */
@@ -552,7 +710,7 @@ hr.styled-hr {
 .schrift-5 { font-size: 24px; }
 .schrift-7 { font-size: 48px; }
 
-.gruen { color: var(--gruen); }
+.gruen { color: var(--gruen-text); }
 .grau { color: var(--text); }
 .grau-hell { color: #626262; }
 .blaugrau { color: #5a6271; }
@@ -565,152 +723,152 @@ hr.styled-hr {
 
 .ueberschrift-abstand { padding: 10px 0; }
 
-/* ---------- Seitenhintergründe ---------- */
+/* ---------- Bewegung nur, wenn das System sie erlaubt ---------- */
 
-.hg-werkstatt { background-image: url("../bilder/kfz-werkstatt-guetersloh-reparatur.webp"); }
-.hg-leistungen { background-image: url("../bilder/kfz-werkstatt-leistungen-armaturenbrett.webp"); }
-.hg-klimaservice { background-image: url("../bilder/klimaservice-guetersloh-lueftung.webp"); }
-.hg-reifenservice { background-image: url("../bilder/reifenservice-guetersloh-rad.webp"); }
-.hg-anfahrt { background-image: url("../bilder/anfahrt-kfz-werkstatt-guetersloh-strasse.webp"); }
-.hg-kontakt { background-image: url("../bilder/kontakt-kfz-werkstatt-guetersloh-telefon.webp"); }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-/* ---------- Bildschirmbreiten ---------- */
-
-@media screen and (max-width: 1200px) {
-  .banner-wrap .banner h1 {
-    font-size: 80px;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 }
 
-@media screen and (max-width: 992px) {
+/* ---------- Tablet ---------- */
+
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .wsite-logo img {
+    max-width: none;
+  }
+
+  .banner-wrap .banner p {
+    font-size: 1.2em;
+    line-height: 1.7em;
+  }
+
+  .short-header-page .banner-wrap .banner h1 {
+    font-size: 2.6em;
+  }
+
+  .main-wrap .content-wrap {
+    padding: 40px 0 30px;
+  }
+
+  .no-header-page .main-wrap .content-wrap {
+    padding: 0;
+  }
+
+  .spalten {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .spalten-breit {
+    gap: 30px;
+  }
+
+  .spalte-20 { flex: 20 1 0; }
+  .spalte-25 { flex: 25 1 0; }
+  .spalte-30 { flex: 30 1 0; }
+  .spalte-50 { flex: 50 1 0; }
+
+  .footer-wrap .spalten {
+    gap: 20px;
+  }
+}
+
+/* ---------- Desktop: Menüleiste statt Hamburger ---------- */
+
+@media screen and (min-width: 993px) {
   .container {
-    width: 100%;
-    padding: 0 20px;
+    width: 960px;
+    padding: 0;
   }
 
   h2 {
-    font-size: 1.75em;
+    font-size: 32px;
+  }
+
+  .paris-header {
+    overflow: visible;
   }
 
   .paris-header .container {
-    padding: 10px 0;
+    padding: 0 40px;
   }
 
   .paris-header .logo {
-    padding-right: 15px;
-    text-align: center;
+    padding-right: 25px;
+    text-align: left;
   }
 
-  /* Hamburger im Kopfbereich */
-  .paris-header label.hamburger {
-    position: relative;
-    z-index: 13;
-    display: table-cell;
-    vertical-align: middle;
-    width: 30px;
-    height: 30px;
-    padding: 0 10px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+  .paris-header .hamburger {
+    display: none;
   }
 
-  .paris-header label.hamburger span,
-  .paris-header label.hamburger span::before,
-  .paris-header label.hamburger span::after {
-    position: relative;
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: #fff;
-    content: "";
-    transition: 200ms ease-out;
-  }
-
-  .paris-header label.hamburger span {
-    left: 4px;
-    margin: 5px 0;
-  }
-
-  .paris-header label.hamburger span::before {
-    top: -8px;
-  }
-
-  .paris-header label.hamburger span::after {
-    bottom: -6px;
-  }
-
-  /* Bei offenem Menü wird der Hamburger zum X */
-  body.nav-open .paris-header label.hamburger span {
-    background: transparent;
-  }
-
-  body.nav-open .paris-header label.hamburger span::before {
-    top: 0;
-    transform: rotate(45deg);
-  }
-
-  body.nav-open .paris-header label.hamburger span::after {
-    top: -2px;
-    transform: rotate(135deg);
-  }
-
-  /* Die Navigation wird zur Vollbild-Liste unter dem Kopfbereich */
-  .nav {
-    position: fixed;
-    inset: 0;
-    z-index: 11;
-    display: block;
-    overflow: hidden auto;
-    max-height: 0;
-    padding-top: var(--kopf-hoehe);
-    opacity: 0;
-    visibility: hidden;
-    background: rgb(0 0 0 / 0.9);
-    transition: max-height 500ms, opacity 500ms, visibility 0s 500ms;
-  }
-
+  .nav,
   body.nav-open .nav {
-    max-height: 100vh;
-    padding-bottom: 10px;
+    position: static;
+    display: table-cell;
+    overflow: visible;
+    max-height: none;
+    padding: 0;
     opacity: 1;
     visibility: visible;
-    transition: max-height 500ms, opacity 500ms, visibility 0s;
+    background: none;
+    vertical-align: middle;
+    text-align: center;
+    transition: none;
   }
 
   .nav ul {
-    float: none;
-    display: block;
-    width: 100%;
+    float: right;
+    display: inline-block;
+    width: auto;
+    text-align: left;
   }
 
   .nav li {
-    position: relative;
-    float: none;
-    text-align: center;
+    float: left;
+    transition: background 500ms;
   }
 
-  .nav li a.wsite-menu-item,
-  .nav li a.wsite-menu-subitem {
-    padding: 10px 0;
-    font-size: 1em;
-    transition: 300ms;
+  .nav li a {
+    padding: 22px 20px;
+    font-size: 18px;
   }
 
   .nav li.wsite-menu-item-wrap#active > a,
+  .nav li.wsite-menu-subitem-wrap#active > a,
   .nav li.wsite-menu-item-wrap > a:hover,
   .nav li.wsite-menu-subitem-wrap > a:hover {
-    background: none;
-    color: var(--gruen);
+    background: var(--gruen-text);
+    color: #fff;
   }
 
-  /* Untermenü: klappt per Pfeil auf */
+  /* Untermenü klappt beim Überfahren oder per Tastatur auf */
+  .nav li.has-submenu > .icon-caret {
+    display: none;
+  }
+
   .nav .wsite-menu-wrap {
-    display: block;
-    position: static;
-    overflow: hidden;
-    max-height: 0;
-    min-width: 0;
-    transition: max-height 500ms ease-in-out 250ms;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 5000;
+    overflow: visible;
+    min-width: 200px;
+    max-height: none;
+    transition: none;
   }
 
   .nav li.has-submenu:hover > .wsite-menu-wrap,
@@ -718,112 +876,73 @@ hr.styled-hr {
     display: block;
   }
 
-  .nav li.has-submenu .wsite-menu-wrap.open {
-    max-height: 1000px;
+  .nav .wsite-menu li {
+    float: none;
+    display: block;
   }
 
   .nav .wsite-menu li a {
-    background: none;
-    border: 0;
+    padding: 10px 5px;
+    background: rgb(0 0 0 / 0.9);
+    border-bottom: 1px solid #303030;
   }
 
   .nav .wsite-menu li a:hover {
-    background: none;
-    border: 0;
+    background: rgb(0 0 0 / 0.9);
+    border-left: 5px solid var(--gruen);
+    color: #fff;
   }
 
   .nav .wsite-menu li.wsite-nav-current > a {
     color: var(--gruen);
   }
 
-  .nav li.has-submenu > span.icon-caret {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    display: block;
-    width: 20px;
-    height: 20px;
-    padding: 10px;
-    cursor: pointer;
-    transition: 300ms ease-in-out;
-  }
-
-  .nav li.has-submenu > span.icon-caret::before,
-  .nav li.has-submenu > span.icon-caret::after {
-    position: relative;
-    display: block;
-    width: 2px;
-    height: 8px;
-    background: #fff;
-    content: "";
-  }
-
-  .nav li.has-submenu > span.icon-caret::before {
-    top: 5px;
-    left: 5px;
-    transform: rotate(-45deg);
-  }
-
-  .nav li.has-submenu > span.icon-caret::after {
-    top: -3px;
-    left: 10px;
-    transform: rotate(45deg);
-  }
-
-  .nav li.has-submenu.wsite-menu-item-wrap#active > span.icon-caret::before,
-  .nav li.has-submenu.wsite-menu-item-wrap#active > span.icon-caret::after,
-  .nav .wsite-menu li.wsite-nav-current > span.icon-caret::before,
-  .nav .wsite-menu li.wsite-nav-current > span.icon-caret::after {
-    background: var(--gruen);
-  }
-
   .banner-wrap .banner {
-    overflow-x: hidden;
+    overflow-x: visible;
   }
 
   .banner-wrap .banner h1 {
-    font-size: 2.6em;
-    line-height: 1.2em;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
+    font-size: 80px;
+    line-height: 1.1em;
   }
 
   .banner-wrap .banner p {
-    font-size: 1.2em;
-    line-height: 1.7em;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
+    font-size: 42px;
+    line-height: 50px;
   }
 
   .landing-page .banner-wrap {
-    padding-bottom: 0;
+    padding-bottom: 55px;
   }
 
   .landing-page #contentArrow {
-    position: relative;
+    position: absolute;
+    left: 0;
+    right: 0;
     bottom: 0;
-    margin-top: 3.5em;
+    margin: 0 auto;
   }
 
   .short-header-page .banner-wrap .banner h1 {
-    font-size: 2.6em;
-    line-height: 1.2em;
-    padding-bottom: 0;
-  }
-
-  .main-wrap .container {
-    padding: 30px 20px;
+    padding-bottom: 30px;
+    font-size: 60px;
+    line-height: 1.1em;
   }
 
   .no-header-page .main-wrap .content-wrap {
-    padding: 0;
+    padding: 40px 0 30px;
   }
 
-  .footer-wrap .container {
+  .main-wrap .container {
     padding: 0;
   }
 
   .footer-wrap .wsite-footer {
-    width: 100%;
-    padding: 40px 20px;
+    width: 960px;
+    margin: 0 auto;
+    padding: 35px 0 20px;
   }
 }
 
@@ -833,41 +952,10 @@ hr.styled-hr {
   }
 }
 
-@media screen and (max-width: 767px) {
-  body {
-    font-size: 15px;
-  }
+/* ---------- Große Bildschirme ---------- */
 
-  .wsite-logo img {
-    max-width: 200px;
-  }
-
-  .banner-wrap .banner p {
-    font-size: 1.1em;
-    line-height: 1.6em;
-  }
-
-  .banner h1 span,
-  .banner p span {
-    font-size: inherit;
-    line-height: inherit;
-  }
-
-  .main-wrap .content-wrap {
-    padding: 0;
-  }
-
-  .short-header-page .banner-wrap .banner h1 {
-    font-size: 2.75em;
-    line-height: 1.2em;
-  }
-
-  .spalten {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .footer-wrap .spalten {
-    gap: 25px;
+@media screen and (min-width: 1201px) {
+  .banner-wrap .banner h1 {
+    font-size: 100px;
   }
 }
