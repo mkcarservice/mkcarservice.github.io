@@ -387,6 +387,7 @@ body.nav-open .nav {
 }
 
 .nav li.wsite-menu-item-wrap#active > a,
+.nav li.wsite-menu-item-wrap:has(.wsite-nav-current) > a,
 .nav li.wsite-menu-item-wrap > a:hover,
 .nav li.wsite-menu-subitem-wrap > a:hover,
 .nav .wsite-menu li.wsite-nav-current > a {
@@ -1029,6 +1030,7 @@ body.nav-open .nav {
   }
 
   .nav li.wsite-menu-item-wrap#active > a,
+  .nav li.wsite-menu-item-wrap:has(.wsite-nav-current) > a,
   .nav li.wsite-menu-item-wrap > a:hover,
   .nav li.wsite-menu-subitem-wrap > a:hover {
     border-bottom-color: var(--gruen);
