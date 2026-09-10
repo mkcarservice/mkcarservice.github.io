@@ -1,0 +1,32 @@
+/* Aus Weeblys sites.css uebernommen: nur die Regeln, die auf dieser Seite
+   tatsaechlich greifen. Original 210877 Bytes, 1998 Regeln. */
+img { -ms-interpolation-mode:bicubic }
+.wsite-button { display:inline-block;padding:0 15px 0 0;background:url(/images/common/buttons/small_grey.png) no-repeat 100% -100px;text-decoration:none !important;font-weight:normal !important;font-size:14px !important;color:#222 !important;cursor:pointer }
+.wsite-button-inner { float:left;background:url(/images/common/buttons/small_grey.png) no-repeat 0 -1px;padding:0 5px 0 20px;height:32px;line-height:32px;white-space:nowrap }
+.wsite-button:hover { background-position:100% -133px }
+.wsite-button:hover .wsite-button-inner { background-position:0 -34px }
+.wsite-button:active { background-position:100% -166px }
+.wsite-button:active .wsite-button-inner { background-position:0 -67px }
+.wsite-button-highlight, .wsite-button-highlight .wsite-button-inner { background-image:url(/images/common/buttons/small_blue.png) }
+.wsite-button-highlight { color:#fff !important }
+.wsite-button-large { font-size:18px !important;background:url(/images/old/button/large_grey.png) no-repeat 100% -130px }
+.wsite-button-large .wsite-button-inner { height:42px;line-height:42px;padding:0 10px 0 25px;background:url(/images/old/button/large_grey.png) no-repeat 0 -1px }
+.wsite-button-large:hover { background-position:100% -173px }
+.wsite-button-large:hover .wsite-button-inner { background-position:0 -44px }
+.wsite-button-large:active { background-position:100% -216px }
+.wsite-button-large:active .wsite-button-inner { background-position:0 -87px }
+.wsite-button-large.wsite-button-highlight, .wsite-button-large.wsite-button-highlight .wsite-button-inner { background-image:url(/images/common/buttons/large_blue.png) }
+.wsite-image { position:relative }
+.wsite-image a { display:inline-block\9;max-width:100%\9 }
+.wsite-image-border-none a img { border-width:0 !important }
+.wsite-logo { display:inline-block;vertical-align:top }
+.wsite-logo img, .wsite-logo span { vertical-align:top !important }
+.wsite-logo a img { border:0 }
+hr.styled-hr { background-color:#eee;background-color:rgba(0,0,0,0.13);border:0pt none;color:#eee;color:rgba(0,0,0,0.13);height:1px;margin:0 auto;text-align:center }
+.wsite-not-footer { text-align:left }
+.wsite-multicol { position:relative;direction:ltr }
+.wsite-multicol-table { position:relative;border-collapse:collapse;table-layout:fixed;width:100%;margin:0 !important;border:0 !important;padding:0 !important }
+.wsite-multicol-col { vertical-align:top;margin:0 !important;border:0 !important;padding:0;-moz-box-sizing:border-box }
+.wsite-footer { clear:both }
+h2, .wsite-content-title, .paragraph { word-wrap:break-word }
+@media screen and (max-width: 767px) { .wsite-logo img { max-width: 200px; } }

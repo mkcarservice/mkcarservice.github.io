@@ -1,4 +1,4 @@
- @import url(/files/theme/googlefonts/fjallaone/v13/Yq6R-LCAWCX3-6Ky7FAFnOZwkxgtUb8.ttf?1786294192); ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input { margin: 0; padding: 0; }
+ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input { margin: 0; padding: 0; }
  html { height: 100%; }
  body { width: 100%; height: 100%; background: #222121; color: #666666; font-family: 'Lato', sans-serif; font-size: 16px; font-weight: normal; line-height: 24px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
  a { color: #45b33d; text-decoration: none; -webkit-transition: all 500ms ease; -moz-transition: all 500ms ease; -ms-transition: all 500ms ease; -o-transition: all 500ms ease; transition: all 500ms ease; }
@@ -40,10 +40,10 @@
  .nav li a { display: block; color: #ffffff; padding: 22px 20px; letter-spacing: .05em; text-transform: uppercase; font-family: 'Lato', sans-serif; font-size: 13px; font-weight: bold; line-height: normal; }
  .nav li.wsite-menu-item-wrap#active > a, .nav li.wsite-menu-subitem-wrap#active > a, .nav li.wsite-menu-item-wrap > a:hover, .nav li.wsite-menu-subitem-wrap > a:hover { background: #45b33d; }
  .mobile-nav { display: none; }
- #wsite-menus .wsite-menu li a { padding: 10px 5px; background: rgba(0, 0, 0, 0.9); color: #ffffff; border-bottom: 1px solid #303030; border-left: none; border-right: none; font-family: 'Lato', sans-serif; font-size: 13px; font-weight: normal; line-height: normal; box-sizing: border-box; }
- #wsite-menus .wsite-menu li a:hover { background: rgba(0, 0, 0, 0.9); color: #ffffff; border-left: 5px solid #36992f; }
- #wsite-menus .wsite-menu-arrow { color: transparent; font-size: 0; }
- #wsite-menus .wsite-menu-arrow:before { display: block; color: #ffffff; content: '\203A'; font-family: 'Lato', sans-serif; font-size: 24px; font-weight: normal; line-height: 11px; }
+ .desktop-nav .wsite-menu li a { padding: 10px 5px; background: rgba(0, 0, 0, 0.9); color: #ffffff; border-bottom: 1px solid #303030; border-left: none; border-right: none; font-family: 'Lato', sans-serif; font-size: 13px; font-weight: normal; line-height: normal; box-sizing: border-box; }
+ .desktop-nav .wsite-menu li a:hover { background: rgba(0, 0, 0, 0.9); color: #ffffff; border-left: 5px solid #36992f; }
+ .desktop-nav .wsite-menu-arrow { color: transparent; font-size: 0; }
+ .desktop-nav .wsite-menu-arrow:before { display: block; color: #ffffff; content: '\203A'; font-family: 'Lato', sans-serif; font-size: 24px; font-weight: normal; line-height: 11px; }
  #wsite-mini-cart { position: fixed !important; top: 80px !important; overflow-y: scroll; max-height: 600px; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
  #wsite-mini-cart .wsite-css-aspect { width: 50px; height: 50px; margin: 10px; }
  .banner-wrap { position: relative; width: 100%; padding: 55px 0; box-sizing: border-box; background: #ffffff url('theme/default-bg.jpg?1483887394?1786294192') center center no-repeat; background-size: cover; }
@@ -356,3 +356,43 @@ div.paragraph ul, div.paragraph ol { padding-left: 3em !important; margin: 5px 0
 div.paragraph li { padding-left: 5px !important; margin: 3px 0 0 !important; }
 div.paragraph ul, div.paragraph ul li { list-style: disc outside !important; }
 div.paragraph ol, div.paragraph ol li { list-style: decimal outside !important; }
+
+/* --- Ergaenzungen nach dem Entfernen des Weebly-JavaScripts --- */
+
+/* Desktop-Untermenue. Frueher hat Weeblys main.js das Untermenue aus dem
+   Menuepunkt herausgeloest, an das Seitenende verschoben und per JavaScript
+   positioniert. Das uebernimmt jetzt CSS. */
+.desktop-nav li.has-submenu { position: relative; }
+.desktop-nav li.has-submenu > span.icon-caret { display: none; }
+.desktop-nav .wsite-menu-wrap {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 5000;
+  min-width: 200px;
+}
+.desktop-nav li.has-submenu:hover > .wsite-menu-wrap,
+.desktop-nav li.has-submenu:focus-within > .wsite-menu-wrap { display: block; }
+.desktop-nav .wsite-menu li { float: none; display: block; }
+
+/* Icons. Ersetzt Font Awesome, von dem nur sechs Symbole gebraucht wurden.
+   Groesse und Ausrichtung sind so gewaehlt, dass die Zeilen genauso hoch
+   bleiben wie mit den vorherigen Schriftsymbolen. */
+.icon {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.35em;
+  fill: currentColor;
+}
+
+/* Der Header und die Navigation schneiden mit overflow: hidden ab. Fuer das
+   Mobilmenue ist das noetig, fuer das Desktop-Untermenue nicht: dort wuerde es
+   das aufgeklappte Menue abschneiden. Weeblys main.js hat das Untermenue
+   deshalb an das Seitenende verschoben. Ab Desktop-Breite genuegt es, das
+   Abschneiden aufzuheben. */
+@media screen and (min-width: 993px) {
+  .paris-header { overflow: visible; }
+  .paris-header .nav.desktop-nav { overflow: visible; }
+}

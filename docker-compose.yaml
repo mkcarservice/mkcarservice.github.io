@@ -1,0 +1,15 @@
+# Lokaler Test der Seite vor dem Deploy auf GitHub Pages.
+#   docker compose up -d   ->  http://localhost:8080
+#   docker compose down
+#
+# Das Repository ist schreibgeschützt eingehängt. Änderungen an HTML, CSS und
+# Bildern sind nach einem Neuladen im Browser sofort sichtbar. Der Container
+# muss dafür nicht neu gestartet werden.
+services:
+  web:
+    image: nginx:alpine
+    container_name: mkcs-test
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/usr/share/nginx/html:ro
