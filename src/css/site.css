@@ -376,7 +376,8 @@ div.paragraph ul, div.paragraph ul li {
 
 .short-header-page .banner-wrap .banner h1 {
   padding-top: 65px;
-  line-height: 66px;
+  font-size: 60px;
+  line-height: 1.1em;
 }
 
 /* Seiten ohne Banner (Jobs, Impressum, Datenschutz) */
